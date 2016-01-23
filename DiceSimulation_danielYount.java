@@ -20,16 +20,18 @@ public class DiceSimulation_danielYount {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        // Run the experiment by calling throwTheDice
         throwTheDice();
     }
     
+    /**
+     * Method that simulates the experiment and calculates the exact values of the distribution
+     * for dice throws
+     */
     public static void throwTheDice() {
-    
-        // Dice Throw 1 at 10,000 redundancy
         
-        int diceThrows = 10000;
-        
-        diceThrows = 600000000;
+        int diceThrows = 50000000; //Variable which holds the number of times the experiment is run
         
         System.out.println("Running experiment at " + diceThrows + " redundnacy.");
         doExperiment(diceThrows);
@@ -37,17 +39,20 @@ public class DiceSimulation_danielYount {
         System.out.println("Running exact simulation...");
         doExact();
         
-        System.out.println("Program is finished.");
+        System.out.println("Calculating Error Values...");
+        calcError();
         
-        System.out.println("Total number of dice throws: " + diceThrows);
-        
+        System.out.println("The smallest value of diceThrows(N) I found to repeatedly give me results within 4 decimal places of accuracy was " + diceThrows);
         
     }
     
+    /**
+     * A method to calculate the error term for each array term
+     */
     public static void calcError() {
         
         for (int j = 2; j <= 2*SIDES; j++) {
-            double error = (distExact[j] - distExperiment[j]);
+            double error = Math.abs(Math.abs(distExact[j]) - Math.abs(distExperiment[j]));
             System.out.println("Error is " + error);
         }
         
